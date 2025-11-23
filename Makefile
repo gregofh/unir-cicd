@@ -32,6 +32,7 @@ test-e2e:
 	docker rm --force calc-web || true
 	docker stop e2e-tests || true
 	docker rm --force e2e-tests || true
+	sleep 20
 	docker run -d --network calc-test-e2e --env PYTHONPATH=/opt/calc --name apiserver --env FLASK_APP=app/api.py -p 5000:5000 -w /opt/calc calculator-app:latest flask run --host=0.0.0.0
 	docker run -d --network calc-test-e2e --name calc-web -p 8081:80 calc-web
 	docker create --network calc-test-e2e --name e2e-tests cypress/included:4.9.0 --browser chrome || true
